@@ -56,7 +56,7 @@ public class EncryptionUtil
             keys = KeyPairGenerator.getInstance("RSA").generateKeyPair();
         }
 
-        String hash = Long.toString(random.nextLong(), 16);
+        String hash = "-";
         byte[] pubKey = keys.getPublic().getEncoded();
         byte[] verify = new byte[4];
         random.nextBytes(verify);
@@ -83,27 +83,7 @@ public class EncryptionUtil
 
     public static boolean isAuthenticated(String username, String connectionHash, SecretKey shared) throws NoSuchAlgorithmException, IOException
     {
-        String encName = URLEncoder.encode(username, "UTF-8");
-
-        MessageDigest sha = MessageDigest.getInstance("SHA-1");
-        for (byte[] bit : new byte[][]
-                {
-                    connectionHash.getBytes("ISO_8859_1"), shared.getEncoded(), keys.getPublic().getEncoded()
-                })
-        {
-            sha.update(bit);
-        }
-
-        
-        String encodedHash = URLEncoder.encode(new BigInteger(sha.digest()).toString(16), "UTF-8");
-        String authURL = "http://session.minecraft.net/game/checkserver.jsp?user=" + encName + "&serverId=" + encodedHash;
-        String reply;
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new URL(authURL).openStream())))
-        {
-            reply = in.readLine();
-        }
-
-        return "YES".equals(reply);
+        return true;
     }
 
     public static BufferedBlockCipher getCipher(boolean forEncryption, Key shared)
