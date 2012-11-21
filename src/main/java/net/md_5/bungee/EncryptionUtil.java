@@ -94,6 +94,7 @@ public class EncryptionUtil
             sha.update(bit);
         }
 
+        
         String encodedHash = URLEncoder.encode(new BigInteger(sha.digest()).toString(16), "UTF-8");
         String authURL = "http://session.minecraft.net/game/checkserver.jsp?user=" + encName + "&serverId=" + encodedHash;
         String reply;
