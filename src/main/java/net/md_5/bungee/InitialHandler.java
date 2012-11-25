@@ -40,7 +40,10 @@ public class InitialHandler implements Runnable
             {
                 case 0x02:
                     Packet2Handshake handshake = new Packet2Handshake(packet);
-                    // fire connect event 
+                    // fire connect event
+                    if(handshake.username.length() > 16){
+                    	throw new KickException("Too long nickname");
+                    }
                     LoginEvent event = new LoginEvent(handshake.username, socket.getInetAddress(), handshake.host);
                     BungeeCord.instance.pluginManager.onHandshake(event);
                     if (event.isCancelled())
