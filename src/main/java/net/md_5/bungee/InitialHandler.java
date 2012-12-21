@@ -103,7 +103,7 @@ public class InitialHandler implements Runnable
                 default:
                     if (id == 0xFA)
                     {
-                        run(); // WTF Spoutcraft
+                        run(); // WTF Spoutcraft lol
                     } else
                     {
                         // throw new IllegalArgumentException("Wasn't ready for packet id " + Util.hex(id));
